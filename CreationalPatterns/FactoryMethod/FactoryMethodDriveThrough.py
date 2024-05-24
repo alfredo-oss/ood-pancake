@@ -7,6 +7,108 @@ class Burgers(Enum):
     VEGAN = "VEGAN"
     DELUXEVEGAN = "VEGAN"
 
+class Burger(ABC):
+    def __init__(self):
+        self.name = ""
+        self.bread = ""
+        self.sauce = ""
+        self.toppings = []
+
+    @abstractmethod
+    def prepare(self):
+        pass
+
+    @abstractmethod
+    def cook(self):
+        pass
+
+    @abstractmethod
+    def serve(self):
+        pass
+
+    def get_name(self) -> str:
+        return self.name
+
+class CheeseBurger(Burger):
+    def __init__(self):
+        super().__init__()
+        self.name = "CheeseBurger"
+        self.bread = "Dam Good English Muffins"
+        self.sauce = "Salsa Picante"
+        self.toppings = ["Tomato", "Pickles", "Onions"]
+    
+    def prepare(self) -> str:
+        return f"Preparing a {self.name}"
+
+    def cook(self) -> str:
+        return f"Cooking a {self.name}"
+    
+    def serve(self) -> str:
+        return f"Serving a {self.name}"
+    
+    def get_name(self) -> str:
+        return self.name
+
+class DeluxeCheeseBurger(Burger):
+    def __init__(self):
+        super().__init__()
+        self.name = "DeluxeCheeseBurger"
+        self.bread = "Dam Good English Muffins"
+        self.sauce = "Salsa Marinara"
+        self.toppings = ["Cheese", "Bacon", "Mango"]
+
+    def prepare(self) -> str:
+        return f"Preparing a {self.name}"
+
+    def cook(self) -> str:
+        return f"Cooking a {self.name}"
+    
+    def serve(self) -> str:
+        return f"Serving a {self.name}"
+    
+    def get_name(self) -> str:
+        return self.name    
+    
+class VeganBurger(Burger):
+    def __init__(self):
+        super().__init__()
+        self.name = "DeluxeCheeseBurger"
+        self.bread = "Dam Good English Muffins"
+        self.sauce = "Salsa Marinara"
+        self.toppings = ["Cheese", "Bacon", "Mango"]
+
+    def prepare(self) -> str:
+        return f"Preparing a {self.name}"
+
+    def cook(self) -> str:
+        return f"Cooking a {self.name}"
+    
+    def serve(self) -> str:
+        return f"Serving a {self.name}"
+    
+    def get_name(self) -> str:
+        return self.name
+    
+class DeluxeVeganBurger(Burger):
+    def __init__(self):
+        super().__init__()
+        self.name = "DeluxeCheeseBurger"
+        self.bread = "Dam Good English Muffins"
+        self.sauce = "Salsa Marinara"
+        self.toppings = ["Cheese", "Bacon", "Mango"]
+
+    def prepare(self) -> str:
+        return f"Preparing a {self.name}"
+
+    def cook(self) -> str:
+        return f"Cooking a {self.name}"
+    
+    def serve(self) -> str:
+        return f"Serving a {self.name}"
+    
+    def get_name(self) -> str:
+        return self.name   
+
 class BurgerStore(ABC):
     @abstractmethod
     def create_burger(self, item: Burgers) -> Burger:
@@ -38,51 +140,10 @@ class VeganBurgerStore(BurgerStore):
             return DeluxeVeganBurger()
         else:
             return None
-        
-class Burger(ABC):
-    def __init__(self):
-        self.name = ""
-        self.bread = ""
-        self.sauce = ""
-        self.toppings = []
-
-    @abstractmethod
-    def prepare(self):
-        pass
-
-    @abstractmethod
-    def cook(self):
-        pass
-
-    @abstractmethod
-    def serve(self):
-        pass
-
-    def get_name(self) -> str:
-        return self.name
+               
     
-class CheeseBurger(Burger):
-    def __init__(self):
-        super().__init__()
-        self.name = "CheeseBurger"
-        self.bread = "Dam Good English Muffins"
-        self.sauce = "Salsa Picante"
-        self.toppings = ["Tomato", "Pickles", "Onions"]
-    
-    def prepare(self) -> str:
-        return f"Preparing a {self.name}"
+cheese_store = CheeseBurgerStore()
+vegan_store = VeganBurgerStore()
 
-    def cook(self) -> str:
-        return f"Cooking a {self.name}"
-    
-    def serve(self) -> str:
-        return f"Serving a {self.name}"
-    
-    def get_name(self) -> str:
-        return self.name
-
-class DeluxeCheeseBurger(Burger):
-    def __init__(self):
-        super().__init__()
-        self.name = "DeluxeCheeseBurger"
-        self.bread = "Dam Good English Muffins"
+burger = cheese_store.order_burger(Burgers.CHEESE)
+print(f"Ethan ordered a {burger.get_name()}")
